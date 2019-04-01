@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>favicon.ico</file>
+        <file>setting.ini</file>
+        <file>image/ui_main_bg.jpeg</file>
+        <file>image/ui_menu_end.png</file>
+        <file>image/ui_menu_rank.png</file>
+        <file>image/ui_menu_start.png</file>
+        <file>image/ui_game_wall.png</file>
+        <file>image/ui_game_bg.jpg</file>
+        <file>image/ui_game_food.png</file>
+        <file>image/ui_game_back.png</file>
+        <file>image/ui_game_recovery.png</file>
+    </qresource>
+</RCC>
