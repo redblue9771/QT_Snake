@@ -1,0 +1,4 @@
+#ifndef GAMERANKING_H
+#define GAMERANKING_H
+
+#endif // GAMERANKING_H
