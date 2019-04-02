@@ -1,5 +1,6 @@
 ﻿#include "widget.h"
 #include "game_ui.h"
+#include "game_rank.h"
 #include <QtGui>
 #include <QMessageBox>
 #include <qpushbutton.h>
@@ -9,22 +10,7 @@ Widget::Widget(QWidget *parent)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint); // Disabled window maximize button
-    {
-        /**
-         * @brief Get data from setting.ini
-         */
-        QSettings *settings = new QSettings (":/setting.ini",QSettings::IniFormat);
-        settings->setIniCodec(QTextCodec::codecForName ("UTF-8"));
-        settings->beginGroup("UI");
-        int init_width=settings->value("init_width").toInt();
-        int init_height=init_width/16*9;
-        setFixedSize(
-                    init_width,
-                    init_height
-                    );
-        setWindowTitle(settings->value("main_title").toString());
-        delete settings;    // Delete porint}
-    }
+    setFixedSize(960,540);
     setWindowIcon(QIcon(":/favicon.ico"));
 
     int btn_height=71;
@@ -60,7 +46,7 @@ Widget::Widget(QWidget *parent)
                 btn_width,
                 btn_height
                 );
-
+    connect(btn_rank,SIGNAL(clicked()),this,SLOT(toRankUI()));
 
     QPushButton *btn_end=new QPushButton(this);
     btn_end->setIcon(QIcon(":/image/ui_menu_end.png"));
@@ -114,6 +100,12 @@ void Widget::closeEvent(QCloseEvent *event){
 void Widget::toGameUI(){
     QGameWidget *gameUI = new QGameWidget();
     gameUI->show();
+    this->hide();
+}
+
+void Widget::toRankUI(){
+    QRankWidget *rankUI = new QRankWidget();
+    rankUI->show();
     this->hide();
 }
 

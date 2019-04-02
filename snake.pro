@@ -27,11 +27,14 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         widget.cpp \
-    game_ui.cpp
+    game_ui.cpp \
+    game_rank.cpp
 
 HEADERS += \
         widget.h \
-    game_ui.h
+    game_ui.h \
+    game_rank.h \
+    custom_type.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

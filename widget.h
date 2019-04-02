@@ -1,8 +1,10 @@
-#ifndef WIDGET_H
+﻿#ifndef WIDGET_H
 #define WIDGET_H
 
 #include <QWidget>
 #include <QtGui>
+#include "custom_type.h"
+
 
 class Widget : public QWidget
 {
@@ -16,6 +18,7 @@ protected:
     void closeEvent(QCloseEvent *event);
 private slots:
     void toGameUI();
+    void toRankUI();
 };
 
 #endif // WIDGET_H

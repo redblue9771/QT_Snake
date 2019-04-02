@@ -5,11 +5,10 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
+#include <QInputDialog>
+#include "custom_type.h"
 
-typedef struct location{
-    int x;
-    int y;
-}location;
+
 
 class QGameWidget : public QWidget
 {
@@ -25,23 +24,30 @@ protected:
 private:
     int food_x;
     int food_y;
-    int snake_head;
     int snake_tail;
     int snake_direction;
-    int snake_node;
+    int game_score;
+    boolean game_status;
 
     QList<location> snake;
-    QPushButton *btn_recovery;
+    QPushButton *btn_start;
     QPushButton *btn_back;
     QPushButton *btn_up;
     QPushButton *btn_down;
     QPushButton *btn_left;
     QPushButton *btn_right;
 
-    QTimer *timer_food;
-
+    void overGame();
     void getFoodLocation();
 
+    QTimer *game_timer;
+    QLabel *label_name;
+    QLabel *label_score;
+    QLabel *label_score_num;
+
+    QInputDialog *input_name;
+
+    user current_user;
 private slots:
     void toMainUI();
     void moveSnake();
@@ -50,7 +56,8 @@ private slots:
     void goLeft();
     void goRight();
     void initGame();
-    //    QLabel *label_score;
+    void toggleGame();
+
     //    QLabel *label_level;
 };
 
