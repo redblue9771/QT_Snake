@@ -1,26 +1,26 @@
 <RCC>
     <qresource prefix="/">
-        <file>favicon.ico</file>
+        <file>image/ui_game_back.png</file>
+        <file>image/ui_game_bg.jpg</file>
+        <file>image/ui_game_cloud1.png</file>
+        <file>image/ui_game_cloud2.png</file>
+        <file>image/ui_game_cloud3.png</file>
+        <file>image/ui_game_direction_down.png</file>
+        <file>image/ui_game_direction_left.png</file>
+        <file>image/ui_game_direction_right.png</file>
+        <file>image/ui_game_direction_up.png</file>
+        <file>image/ui_game_food.png</file>
+        <file>image/ui_game_pause.png</file>
+        <file>image/ui_game_recovery.png</file>
+        <file>image/ui_game_start.png</file>
         <file>image/ui_main_bg.jpeg</file>
         <file>image/ui_menu_end.png</file>
         <file>image/ui_menu_rank.png</file>
         <file>image/ui_menu_start.png</file>
-        <file>image/ui_game_bg.jpg</file>
-        <file>image/ui_game_food.png</file>
-        <file>image/ui_game_back.png</file>
-        <file>image/ui_game_recovery.png</file>
-        <file>image/ui_game_bg.jpg.png</file>
-        <file>image/ui_snake_head_up.png</file>
-        <file>image/ui_snake_head_down.png</file>
-        <file>image/ui_snake_head_left.png</file>
-        <file>image/ui_snake_head_right.png</file>
-        <file>image/ui_snake_tail_down.png</file>
-        <file>image/ui_snake_tail_up.png</file>
-        <file>image/ui_snake_tail_right.png</file>
-        <file>image/ui_snake_tail_left.png</file>
-        <file>image/ui_snake_body_downright.png</file>
+        <file>image/ui_rank_bg.jpg</file>
         <file>image/ui_snake_body_downdown.png</file>
         <file>image/ui_snake_body_downleft.png</file>
+        <file>image/ui_snake_body_downright.png</file>
         <file>image/ui_snake_body_leftdown.png</file>
         <file>image/ui_snake_body_leftleft.png</file>
         <file>image/ui_snake_body_leftup.png</file>
@@ -30,11 +30,14 @@
         <file>image/ui_snake_body_upleft.png</file>
         <file>image/ui_snake_body_upright.png</file>
         <file>image/ui_snake_body_upup.png</file>
-        <file>image/ui_game_direction_down.png</file>
-        <file>image/ui_game_direction_left.png</file>
-        <file>image/ui_game_direction_right.png</file>
-        <file>image/ui_game_direction_up.png</file>
-        <file>image/ui_game_pause.png</file>
-        <file>image/ui_game_start.png</file>
+        <file>image/ui_snake_head_down.png</file>
+        <file>image/ui_snake_head_left.png</file>
+        <file>image/ui_snake_head_right.png</file>
+        <file>image/ui_snake_head_up.png</file>
+        <file>image/ui_snake_tail_down.png</file>
+        <file>image/ui_snake_tail_left.png</file>
+        <file>image/ui_snake_tail_right.png</file>
+        <file>image/ui_snake_tail_up.png</file>
+        <file>favicon.ico</file>
     </qresource>
 </RCC>

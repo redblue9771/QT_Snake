@@ -14,13 +14,21 @@ class QRankWidget : public QWidget
 public:
     explicit QRankWidget(QWidget *parent = nullptr);
 
-  //  void paintEvent(QPaintEvent *event);
+  void paintEvent(QPaintEvent *event);
 protected:
 
 
 private:
+    QLabel *list_top_name;
+    QLabel *list_top_score;
+    QLabel *list_second_name;
+    QLabel *list_second_score;
+    QLabel *list_third_name;
+    QLabel *list_third_score;
+    QPushButton *btn_back;
 
 private slots:
+    void toMainUI();
 
 };
 #endif // GAMERANKING_H

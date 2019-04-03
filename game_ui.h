@@ -26,7 +26,6 @@ private:
     int food_y;
     int snake_tail;
     int snake_direction;
-    int game_score;
     boolean game_status;
 
     QList<location> snake;
@@ -44,10 +43,11 @@ private:
     QLabel *label_name;
     QLabel *label_score;
     QLabel *label_score_num;
+    QLabel *label_rank;
 
-    QInputDialog *input_name;
 
-    user current_user;
+
+
 private slots:
     void toMainUI();
     void moveSnake();
@@ -57,8 +57,6 @@ private slots:
     void goRight();
     void initGame();
     void toggleGame();
-
-    //    QLabel *label_level;
 };
 
 #endif // GAME_UI_H

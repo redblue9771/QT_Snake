@@ -8,13 +8,10 @@
 
 #define ROW_COUNT 20
 #define COLUMN_COUNT 27
-#define SNAKE_UP 1
-#define SNAKE_DOWN -1
-#define SNAKE_LEFT 2
-#define SNAKE_RIGHT -2
 
 extern QWidget *winMain;
-extern QList<user> user_data;
+extern player current_player;
+extern QList<player> player_data;
 
 QGameWidget :: QGameWidget(QWidget *parent):
     QWidget (parent)
@@ -84,17 +81,6 @@ QGameWidget :: QGameWidget(QWidget *parent):
     game_timer=new QTimer();
     connect(game_timer, SIGNAL(timeout()), this, SLOT(moveSnake()));
 
-    input_name = new QInputDialog(this);
-    input_name->setWindowTitle("准备");
-    input_name->setLabelText("请输入你的名字：");
-    input_name->setInputMode(QInputDialog::TextInput);
-
-    int flag = input_name->exec();
-    if(flag == QInputDialog::Accepted){
-
-        current_user.name=input_name->textValue();
-        //        qDebug()<<current_user.name;
-    }
 
     QFont ft;
     ft.setPointSizeF(18);
@@ -105,11 +91,11 @@ QGameWidget :: QGameWidget(QWidget *parent):
     label_name=new QLabel(this);
     label_name->setFont(ft);
     label_name->setPalette(pa);
-    label_name->setText("玩家："+current_user.name);
+    label_name->setText("玩家："+current_player.name);
     label_name->setGeometry(713,60,220,30);
 
 
-    game_score=0;
+    current_player.score=0;
     label_score=new QLabel(this);
     label_score->setFont(ft);
     label_score->setPalette(pa);
@@ -120,7 +106,13 @@ QGameWidget :: QGameWidget(QWidget *parent):
     label_score_num->setFont(ft);
     label_score_num->setPalette(pa);
     label_score_num->setGeometry(787,120,150,30);
-    label_score_num->setNum(game_score);
+    label_score_num->setNum(current_player.score);
+
+    ft.setPointSizeF(14);
+    label_rank=new QLabel(this);
+    label_rank->setFont(ft);
+    label_rank->setPalette(pa);
+    label_rank->setGeometry(713,180,220,30);
 }
 
 void QGameWidget::paintEvent(QPaintEvent *event){
@@ -184,8 +176,15 @@ void QGameWidget::moveSnake(){
     if(food_x==snake.at(0).x && food_y==snake.at(0).y){
         getFoodLocation();
         snake.append(location_tmp);
-        game_score+=100;
-        label_score_num->setNum(game_score);
+        current_player.score+=100;
+        label_score_num->setNum(current_player.score);
+        label_rank->setText("还未获得任何名次~");
+        for(int i=0;i<player_data.size();i++) {
+            if(current_player.score>=player_data.at(i).score){
+                label_rank->setText("成功超越第"+QString::number(i+1)+"名！");
+                break;
+            }
+        }
     }
 
     update();
@@ -212,8 +211,9 @@ void QGameWidget::getFoodLocation(){
  * @brief QGameWidget::initGame
  */
 void QGameWidget::initGame(){
-    game_score=0;
-    label_score_num->setNum(game_score);
+    current_player.score=0;
+    label_score_num->setNum(current_player.score);
+    label_rank->setText("");
     snake.clear();
     snake.append({5,3,"right","right"});
     snake.append({4,3,"right","right"});
@@ -227,11 +227,59 @@ void QGameWidget::initGame(){
 
 
 void QGameWidget::overGame(){
+    boolean wirte_flag=false;
+    QString message="未能闯进前三名！再接再厉！";
+
+    if(player_data.size()==0){
+        player_data.append(current_player);
+        wirte_flag=true;
+    }else{
+        for(int i=0;i<player_data.size();i++) {
+            if(current_player.score>=player_data.at(i).score){
+                player_data.insert(i,current_player);
+                if(player_data.size()>2)
+                    player_data.removeLast();
+                wirte_flag=true;
+                message="恭喜你夺榜第"+QString::number(i+1)+"名！快前往排行榜查看最新排名吧！";
+                break;
+            }
+        }
+    }
+    // update user data
+    if(wirte_flag){
+        QFile file("rank.json");
+        if(!file.open(QIODevice::ReadWrite)) {
+            qDebug() << "File open error";
+        } else {
+            qDebug() <<"File open!";
+        }
+        file.resize(0);
+
+        QJsonObject json;
+        QJsonArray score_array;
+        for(int i=0;i<player_data.size();i++){
+            QJsonObject data;
+            data.insert("name",player_data.at(i).name);
+            data.insert("score",player_data.at(i).score);
+            score_array.append(data);
+        }
+
+        json.insert("rank", QJsonValue(score_array));
+
+        QJsonDocument jsonDoc;
+        jsonDoc.setObject(json);
+
+        file.write(jsonDoc.toJson());
+        file.close();
+    }
+
+
     game_timer->stop();
+
     QMessageBox::information(
                 nullptr,
-                "Game Over!",
                 "游戏结束",
+                message,
                 QMessageBox::Yes
                 );
 
@@ -248,7 +296,7 @@ void QGameWidget::toggleGame(){
         game_status=false;
     }else{
         btn_start->setIcon(QIcon(":/image/ui_game_pause.png"));
-        game_timer->start(300);
+        game_timer->start(400);
         game_status=true;
     }
 

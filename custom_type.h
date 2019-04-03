@@ -9,10 +9,10 @@ typedef struct location{
     QString prev_direction;
 }location;
 
-typedef struct user
+typedef struct player
 {
     QString name;
     int score;
-}user;
+}player;
 
 #endif // CUSTOM_TYPE_H

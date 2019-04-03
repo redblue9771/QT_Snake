@@ -2,7 +2,8 @@
 #include <QtGui>
 #include <QApplication>
 
-QList<user> user_data;
+player current_player;
+QList<player> player_data;
 QWidget *winMain;
 
 int main(int argc, char *argv[])
@@ -32,22 +33,22 @@ int main(int argc, char *argv[])
                     for (int i = 0; i < jsonArray.count();i++){
                         QJsonValue childValue = jsonArray[i];
                         if (childValue.isObject()){
-                            QString user_name="";
-                            int user_score = 0;
+                            QString player_name="";
+                            int player_score = 0;
                             QJsonObject  childObject = childValue.toObject();
                             if (childObject.contains("name")){
                                 QJsonValue valueJson = childObject.value("name");
                                 if (valueJson.isString()){
-                                    user_name = valueJson.toString();
+                                    player_name = valueJson.toString();
                                 }
                             }
                             if (childObject.contains("score")){
                                 QJsonValue valueJson = childObject.value("score");
                                 if (valueJson.isDouble()){
-                                    user_score=valueJson.toInt();
+                                    player_score=valueJson.toInt();
                                 }
                             }
-                            user_data.append({user_name,user_score});
+                            player_data.append({player_name,player_score});
                         }
                     }
                 }

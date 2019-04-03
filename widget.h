@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtGui>
+#include <QInputDialog>
 #include "custom_type.h"
 
 
@@ -14,11 +15,14 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
     void paintEvent(QPaintEvent *event);
+private:
+    QInputDialog *input_name;
 protected:
     void closeEvent(QCloseEvent *event);
 private slots:
     void toGameUI();
     void toRankUI();
+
 };
 
 #endif // WIDGET_H

@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <qpushbutton.h>
 
+extern player current_player;
+
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
@@ -98,9 +100,22 @@ void Widget::closeEvent(QCloseEvent *event){
  * @brief Widget::toGameUI
  */
 void Widget::toGameUI(){
-    QGameWidget *gameUI = new QGameWidget();
-    gameUI->show();
-    this->hide();
+    input_name = new QInputDialog(this);
+    input_name->setWindowTitle("准备");
+    input_name->setLabelText("请输入你的名字：");
+    input_name->setInputMode(QInputDialog::TextInput);
+
+    int flag = input_name->exec();
+    if(flag == QInputDialog::Accepted){
+        if(input_name->textValue()!=""){
+            current_player.name=input_name->textValue();
+            QGameWidget *gameUI = new QGameWidget();
+            gameUI->show();
+            this->hide();
+        }else{
+            QMessageBox::warning(nullptr,"错误","名字不能为空！",QMessageBox::Ok);
+        }
+    }
 }
 
 void Widget::toRankUI(){
